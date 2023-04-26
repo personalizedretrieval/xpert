@@ -1,0 +1,63 @@
+evaluation:
+  device: 'cuda:0'
+  eval_out_dir: '${CURR_DIR}/eval_out/'
+  model: '${CURR_DIR}/models/model_24.pt'
+  num_batches: 600000
+
+eval_data:
+    activity_selector:
+        type: 'channels'  # in ['novel_events', 'channels']
+        max_history: 100
+        max_novel: 20
+        history_novel_overlap: True  # overlap between history and novel behaviours
+        dedup_novel: False
+        uc_config:
+            initial_novel: -1 # Number of novel events considered for clustering. -1 represents all. Final number of channels=max_novel
+            mode: 'offline' # in ['offline', 'online']
+            clustering_algo: 'ward'
+            offline:
+                ward:
+                    cluster_representation: 'mean' # in ['mean', 'medoid', 'weighted_mean', 'last_event']
+                    cluster_selection_type: 'imp_wt' # in ['recent', 'recent_uniq', 'imp_wt']
+                    weights: 'pinner_sage' # in ['inv_time', 'pinner_sage'] If cluster_representation is weighted_mean
+                    weights_lambda: 0.07 # If weights=pinner_sage, what should the lambda for the importance measure
+                    dynamic_channels: True # Cluster using distance threshold which results in dynamic number of channels
+                    cluster_dist_threshold: 0.6
+                    cluster_lambda: 0.07
+
+    data:
+        type: 'in_memory'
+        multilabel: True
+        collate_to_multiclass: False
+        user_dataset_file: '${DATA_PATH}/final_data_test.txt'
+        user_data_backup_dir: '${DATA_PATH}/user_data_test'
+        docs_features_file: '${DATA_PATH}/item_features.txt'
+        ads_features_file: '${DATA_PATH}/item_features.txt'
+        features_backup_dir: '${DATA_PATH}/feat_data_bxml'
+        features_type: "embeddings" # in ["tokens", "raw_string", "embeddings"]
+        analysis: False
+        emb_dim: 768
+        dedup_activity: False  # whether to dedup activity
+        history_padding: 30  # if > -1, pad history from csr to np array of shape [-1, history_padding]
+        num_negatives: -1
+        batch_size: 200
+        num_workers: 16
+        shuffle: 0
+        pin_mem: 1
+        buffer: -1 # buffer time in seconds
+        batch_on: 'users' # in ['users', 'labels', 'labels_ngame']
+
+    candidates:
+        type: 'inmemory' # in ['cosmos', 'inmemory']
+        candidates_embs_file: '${DATA_PATH}/item_features.txt'
+        emb_dim: 768
+        nns:
+            type: 'hnsw'
+            M: 100
+            efC: 300
+            efS: 10
+            num_threads: 20
+            hnsw_backup: "${DATA_PATH}/feat_data_bxml/candidate_ads_hnsw.pt"
+            retrieval_stategy: "importance_raise0.6_sampling" # in ["uniform", "importance_sampling", "importance_raise0.x_sampling"]
+            max_retrievals_per_user: 100 # Remove this if you want k (10 default) retrievals for each novel event/channel
+
