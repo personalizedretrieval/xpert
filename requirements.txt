@@ -1,0 +1,8 @@
+numpy
+torch
+tqdm
+scipy
+sklearn
+nmslib
+EnvYAML
+git+https://github.com/kunaldahiya/pyxclib.git
