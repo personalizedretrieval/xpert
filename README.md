@@ -5,9 +5,8 @@ This folder contains the code for XPERT and the Amazon 1M dataset
 
 ## Download the data and model:
 --------------------------------
-1. Download the Amazon dataset from https://ecstorageaccount.blob.core.windows.net/eoe/data.zip. Extract and place in data folder
-2. Download the trained model from https://ecstorageaccount.blob.core.windows.net/eoe/models.zip. Extract and place in models folder.
-
+1. Download the Amazon dataset as part of [data.zip](https://drive.google.com/file/d/1ySEZbqsNoZ_i1llj4az9xHJPof7G4VHo/view?usp=sharing). Extract and place in data folder
+2. Download the trained model as part of [data.zip](https://drive.google.com/file/d/1ySEZbqsNoZ_i1llj4az9xHJPof7G4VHo/view?usp=sharing). Extract and place in models folder.
 
 ## Running the inference code of XPERT on Amazon 1M data:
 --------------------------------------------------------
@@ -22,7 +21,6 @@ DATA_PATH  would be where the data is present (it would be CURR_DIR/data).
 
 3. Run `python src/evaluate_XPERT.py configs/evaluation.yaml`
 
-
 ## Data format:
 -------------
 1. item_features.txt contains the 768-dimensional embeddings of the Amazon product titles which were exracted from a pretrained 6-layered DistilBERT base mode.
@@ -36,13 +34,22 @@ history = List of space separated: <product_id>:<timestamp> which are the user h
 
 feat_data_bxml and user_data_test contains binarized files extracted from the files above, and are shared for fast inference.
 
-
+## Cite as:
+-----------
+```bib
+@inproceedings{vemuri2023personalized,
+  title={Personalized Retrieval over Millions of Items},
+  author={Vemuri, Hemanth and Agrawal, Sheshansh and Mittal, Shivam and Saini, Deepak and Soni, Akshay and Sambasivan, Abhinav V and Lu, Wenhao and Wang, Yajun and Parsana, Mehul and Kar, Purushottam and others},
+  booktitle={Proceedings of the 46th International ACM SIGIR Conference on Research and Development in Information Retrieval},
+  pages={1014--1022},
+  year={2023}
+}
+```
 
 ## Currently added features:
 --------------------------
 1. Amazon-1M dataset.
 2. Inference model and scripts for XPERT.
-
 
 ## Features to add:
 ---------------------
