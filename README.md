@@ -5,8 +5,8 @@ This folder contains the code for XPERT and the Amazon 1M dataset
 
 ## Download the data and model:
 --------------------------------
-1. Download the Amazon dataset as part of [data.zip](https://drive.google.com/file/d/1ySEZbqsNoZ_i1llj4az9xHJPof7G4VHo/view?usp=sharing). Extract and place in data folder
-2. Download the trained model as part of [data.zip](https://drive.google.com/file/d/1ySEZbqsNoZ_i1llj4az9xHJPof7G4VHo/view?usp=sharing). Extract and place in models folder.
+1. Download and unzip Amazon-1M dataset as part of [Amazon-1M.zip](https://drive.google.com/file/d/1ySEZbqsNoZ_i1llj4az9xHJPof7G4VHo).
+2. Download and unzip trained model as part of [Amazon-1M-model.zip](https://drive.google.com/file/d/15NilXsQSg-K74JyrzuGXnyQICD0Q661i).
 
 ## Running the inference code of XPERT on Amazon 1M data:
 --------------------------------------------------------
